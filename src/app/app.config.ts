@@ -13,12 +13,18 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 registerLocaleData(localeDe);
 
 const config = {
-  projectId: 'dabubble-57387',
-  appId: '1:1040544770849:web:1df07c76989e5816c56c60',
-  storageBucket: 'dabubble-57387.appspot.com',
-  apiKey: 'AIzaSyBSTXdqT4YVS0tJheGnc1evmzz6_kUya4k',
-  authDomain: 'dabubble-57387.firebaseapp.com',
-  messagingSenderId: '1040544770849',
+  // projectId: 'dabubble-57387',
+  // appId: '1:1040544770849:web:1df07c76989e5816c56c60',
+  // storageBucket: 'dabubble-57387.appspot.com',
+  // apiKey: 'AIzaSyBSTXdqT4YVS0tJheGnc1evmzz6_kUya4k',
+  // authDomain: 'dabubble-57387.firebaseapp.com',
+  // messagingSenderId: '1040544770849',
+  apiKey: "AIzaSyClgXGdQyQcIQlxTybULrrB6GN4usQZ6aw",
+  authDomain: "dabubblefinal.firebaseapp.com",
+  projectId: "dabubblefinal",
+  storageBucket: "dabubblefinal.firebasestorage.app",
+  messagingSenderId: "209496147712",
+  appId: "1:209496147712:web:94b40206b5196e19ad95e5"
 };
 
 export const appConfig: ApplicationConfig = {
