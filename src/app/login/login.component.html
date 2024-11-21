@@ -28,10 +28,11 @@
           ODER
           <div class="underline"></div>
         </div>
-        <div class="googleLogin" (click)="googleLogin()">
+        <button id ="googleLoginButton" class="googleLogin" (click)="googleLogin()">
+          <!-- (click)="googleLogin()" -->
           <img src="./assets/img/01_onboarding-login-signup/Google.png" />
           Anmelden mit Google
-        </div>
+        </button>
         <div class="buttonContainer">
           <button type="button" class="button loginButton" (click)="login()">Anmelden</button>
           <div class="button guestLoginButton divAsButton" (click)="onGuestLogin()">Gäste-Login</div>
