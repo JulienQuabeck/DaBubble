@@ -38,7 +38,7 @@
     <div class="ch-creation">
       <span>channel erstellen</span>
       <button class="closeDial" (click)="onCloseDialog(); onResetForm()">
-        <img class="cursor-effect" src="assets/img/icons/close.svg" alt="" />
+        <img class="cursor-effect" src="./assets/img/icons/close.svg" alt="" />
       </button>
     </div>
     <p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein <span class="bold-ex">#marketing</span> zum Beispiel.</p>
@@ -47,7 +47,7 @@
     </div>
     <div class="ch-info-input">
       <input [(ngModel)]="channelName" class="input" name="channel_name" type="text" placeholder="z.B. Kooperationsprojekte" />
-      <img src="assets/img/icons/hash_tag.svg" alt="" />
+      <img src="./assets/img/icons/hash_tag.svg" alt="" />
       @if (nameError) {
       <span>This channel name is already used, please enter a different name.</span>
       }@else if(syntaxError){
@@ -68,7 +68,7 @@
     <div class="ch-creation-user">
       <span>leute hinzufügen</span>
       <button type="button" class="closeDial" (click)="onCancelAddUser(); onResetForm()">
-        <img class="cursor-effect" src="assets/img/icons/close.svg" alt="" />
+        <img class="cursor-effect" src="./assets/img/icons/close.svg" alt="" />
       </button>
     </div>
     <div class="ch-info-input-user">
@@ -94,7 +94,7 @@
         <li *ngFor="let user of pickedArrayObj; let i = index">
           <img class="user-avatar" src="{{ user.avatar }}" alt="{{ user.name }}" />
           <span>{{ user.name }}</span>
-          <button type="button" (click)="onRemoveUser(user.id)"><img src="assets/img/icons/close.svg"/></button>
+          <button type="button" (click)="onRemoveUser(user.id)"><img src="./assets/img/icons/close.svg"/></button>
         </li>
       </ul>
     </div>
