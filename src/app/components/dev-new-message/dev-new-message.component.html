@@ -1,0 +1,15 @@
+<div class="chat-content">
+  <div class="current-nav-user cursor-effect">
+    <span>Neue Nachricht</span>
+    <div>
+      <input
+        type="text"
+        class="search"
+        [(ngModel)]="search_input"
+        (input)="onSearchInDevspace(); sendSearchInput(search_input)"
+        placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
+      />
+      <app-search-devspace *ngIf="showSearchUserName === true" class="app-search-devspace" />
+    </div>
+  </div>
+</div>

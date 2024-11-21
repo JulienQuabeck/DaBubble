@@ -1,0 +1,32 @@
+<form autocomplete="off">
+  <ul class="users">
+    @if(filteredChannels.length !== 0){
+    <li
+      *ngFor="let channel of filteredChannels; let i = index"
+      class="d-flex gp l-mg-2"
+      (click)="
+        handleUpdateUserChannelId(channel.channel_id);
+        loadChannelMessages(channel.channel_id);
+        sendChannel(channel);
+        loadChannelMembers(channel.channel_id);
+        onToggleDevSearch(false);
+        showChannelMessages(true)
+      "
+    >
+      <img class="icon-small" src="assets/img/icons/hash_tag.svg" alt="" />
+      <span class="capitilize">{{ channel.channel_name }} </span>
+    </li>
+    }@else {
+    <li
+      *ngFor="let user of filteredUsers; let i = index"
+      class="d-flex capitilize gp l-mg-2 cursor-effect"
+      (click)="
+        sendToOpenUser(user); sendSelectedUser(user); onToggleDevSearch(false); showChannelMessages(false); sendUserId(user.id); loadMessages(authenticatedUser?.id, user.id)
+      "
+    >
+      <app-profile class="app-profile" [left_side_profile]="true" [image_user]="user.avatar" [bgColorOnline]="user.online === true ? '#92c83e' : '#686868'" />
+      <span> {{ user.name }}</span>
+    </li>
+    }
+  </ul>
+</form>

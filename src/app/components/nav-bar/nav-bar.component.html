@@ -1,0 +1,45 @@
+<header [class.closeHeader]="closeNavBar">
+  <nav>
+    <img [class.ShowLogo]="openNextWrapper === 'wrapper_2' || openNextWrapper === 'wrapper_3'" src="assets/img/icons/logo.svg" alt="Logo" />
+    <div class="return" [class.d-flex]="openNextWrapper === 'wrapper_2' || openNextWrapper === 'wrapper_3'">
+      <button (click)="handleDialogMobile('wrapper_1')">
+        <img class="to_channel_arrow" src="assets/img/icons/arrow_to_channel.svg" alt="" />
+      </button>
+      <img class="channel_name" src="assets/img/icons/channel_name.svg" alt="" />
+    </div>
+    <div class="current-user">
+      @if(authenticatedUser){
+      <span class="to_upper">{{ authenticatedUser.name }}</span>
+      <app-profile
+        class="app-profile dDestop"
+        [left_side_profile]="false"
+        *ngIf="authenticatedUser.avatar"
+        [image_user]="authenticatedUser.avatar"
+        [bgColorOnline]="authenticatedUser.online === true ? '#92c83e' : '#686868'"
+      />
+      <app-profile
+        class="app-profile dMobile"
+        (click)="openLogoutMobile()"
+        [left_side_profile]="false"
+        *ngIf="authenticatedUser.avatar"
+        [image_user]="authenticatedUser.avatar"
+        [bgColorOnline]="authenticatedUser.online === true ? '#92c83e' : '#686868'"
+      />
+      <button class="btn-arrow" (click)="onOpenLogOut()">
+        <img class="arrow-down" src="assets/img/icons/keyboard_arrow_down.svg" alt="" />
+      </button>
+      }@else {
+      <span class="to_upper">bubble guest</span>
+      <app-profile class="app-profile" [left_side_profile]="false" [image_user]="'assets/img/profiles/male_avatar.svg'" (click)="openLogoutMobile()" [bgColorOnline]="'#92c83e'" />
+      <button class="btn-arrow" (click)="onOpenLogOut()">
+        <img class="arrow-down" src="assets/img/icons/keyboard_arrow_down.svg" alt="" />
+      </button>
+      }
+    </div>
+  </nav>
+  <div class="input-search" [class.ShowLogo]="openNextWrapper === 'wrapper_2' || openNextWrapper === 'wrapper_3'">
+    <input [(ngModel)]="search_input" (input)="onSearchInDevspace(); sendSearchInput(search_input)" type="text" name="search-field" placeholder="Devspace durchsuchen" />
+    <img src="assets/img/icons/search.svg" alt="" />
+  </div>
+  <app-search-devspace (click)="closeDevSpace()" *ngIf="showSearchUserName === true" />
+</header>

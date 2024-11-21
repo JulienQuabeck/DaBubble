@@ -1,0 +1,14 @@
+<section class="logout-mobile">
+  <button class="ch-creation">
+    <img class="cursor-effect close-btn" src="assets/img/icons/rectangle.svg" alt="" />
+  </button>
+
+  <button class="single-user-info first-sui top-mg-1 cursor-effect" (click)="onOpenShowProfile(); sendSelectedUser(authenticatedUser!)">
+    <img class="mail" src="assets/img/icons/account_circle.svg" alt="" />
+    <span class="address">Profil</span>
+  </button>
+  <button class="single-user-info cursor-effect" (click)="logout()">
+    <img class="mail" src="assets/img/icons/logout.svg" alt="" />
+    <span class="address">Log out</span>
+  </button>
+</section>

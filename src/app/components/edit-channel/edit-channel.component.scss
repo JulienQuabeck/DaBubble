@@ -1,0 +1,138 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  max-width: 500px;
+  width: 90vw;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  > input {
+    font-family: 'Nunito';
+
+    padding-left: 1rem;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid #adb0d9;
+    outline: none;
+  }
+  > .ch-creation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > span {
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+li {
+  list-style-type: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+.title-container {
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  width: 100%;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > button {
+      background-color: transparent;
+      border: none;
+      color: #797ef3;
+      font-family: 'Nunito';
+      text-transform: capitalize;
+    }
+    > span {
+      text-transform: capitalize;
+      font-weight: 700;
+    }
+  }
+  > .author-line {
+    display: flex;
+    flex-direction: column;
+    align-self: baseline;
+    gap: 0.5rem;
+    > .creator {
+      text-transform: capitalize;
+      font-weight: 700;
+      align-self: baseline;
+    }
+    > .creator-name {
+      text-transform: capitalize;
+      font-size: 16px;
+      color: #797ef3;
+      padding-left: 1rem;
+    }
+  }
+
+  > .separator-line {
+    border: 1px solid #adb0d9;
+  }
+}
+
+.btn-container {
+  align-self: end;
+  display: flex;
+  gap: 1rem;
+  > .btn {
+    font-family: 'Nunito';
+    padding: 0.75rem 1rem;
+    color: white;
+    border-radius: 25px;
+    border: transparent;
+    transition: all 250ms ease-in-out;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  > .btn-danger {
+    background-color: #dc3545;
+  }
+  > .btn-info {
+    background-color: #444df2;
+  }
+}
+
+.title-container {
+  > span:first-child {
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: capitalize;
+  }
+  > .optional {
+    color: gray;
+  }
+}
+
+.closeDial {
+  background-color: transparent;
+  border: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  &:hover {
+    background-color: #eceefe;
+  }
+}

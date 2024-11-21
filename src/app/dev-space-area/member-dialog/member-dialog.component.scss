@@ -1,0 +1,112 @@
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32.74px;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    mat-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+    }
+
+    .close {
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 6px;
+
+        &:hover {
+            background-color: #ECEEFE;
+            color: #535AF1;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+
+    .member {
+        display: flex;
+        align-items: center;
+        padding: 4px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+
+        span {
+            margin-left: 16px;
+            color: black;
+            font-weight: 400;
+            font-size: 18px;
+            font-family: 'Nunito';
+        }
+
+        mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 20px;
+            background-color: #ECEEFE;
+            margin-left: 9px;
+            font-size: 24px;
+            color: black;
+        }
+
+        &:hover {
+            background-color: #ECEEFE;
+        }
+
+        &:active span {
+            color: #535AF1;
+        }
+    }
+
+    .add-member:hover span {
+        color: #535AF1;
+    }
+
+    .member-status {
+        display: flex;
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 30px;
+            border: 2px solid white;
+        }
+
+        div {
+            background-color: #92C83E;
+            width: 14px;
+            height: 14px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .status {
+            align-self: end;
+            margin-left: -20px;
+        }
+    }
+}
+
+
+// ------------------------- MEDIA -------------------------
+
+@media(max-width: 610px) {
+    h2 {
+        mat-icon {
+            display: none;
+        }
+    }
+}

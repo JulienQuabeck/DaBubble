@@ -1,0 +1,30 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #444df2;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(300deg) brightness(107%) contrast(101%);
+  }
+}
+
+@media (width<610px) {
+  .scroll-to-top {
+    display: unset;
+  }
+}

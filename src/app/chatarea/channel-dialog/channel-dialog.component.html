@@ -1,0 +1,47 @@
+<h2>
+  <div><mat-icon>tag</mat-icon> {{ name }}</div>
+  <mat-icon (click)="closeDialog(); onOpenChannelInfo(false)" class="close">close</mat-icon>
+</h2>
+
+<div>
+  <div *ngIf="selectedChannelId">
+    <div class="channel" [ngClass]="{ 'none-border': channelNameEdit }">
+      <div class="channel-headline">
+        <span>Channel-Name</span>
+        <button class="edit" (click)="editChannelName()" *ngIf="isAdmin" [disabled]="name.length < 3">
+          {{ channelNameEdit ? 'Speichern' : 'Bearbeiten' }}
+        </button>
+        <mat-icon class="edit-icon" *ngIf="isAdmin && !channelNameEdit" (click)="editChannelName()">edit</mat-icon>
+        <mat-icon class="edit-icon" *ngIf="channelNameEdit" (click)="editChannelName()">check_circle</mat-icon>
+      </div>
+      <div [ngClass]="{ 'editing-border': channelNameEdit }">
+        <mat-icon>tag</mat-icon>
+        <span *ngIf="!channelNameEdit">{{ name }}</span>
+        <input *ngIf="channelNameEdit" type="text" [(ngModel)]="name" />
+      </div>
+      <span class="warn" *ngIf="name.length < 3">Der Channel-Name muss mind. aus 3 Zeichen bestehen.</span>
+    </div>
+
+    <div class="description channel" [ngClass]="{ 'none-border': channelDescEdit }">
+      <div class="channel-headline">
+        <span>Beschreibung</span>
+        <span class="edit" (click)="editChannelDescription()" *ngIf="isAdmin">
+          {{ channelDescEdit ? 'Speichern' : 'Bearbeiten' }}
+        </span>
+        <mat-icon class="edit-icon" *ngIf="isAdmin && !channelDescEdit" (click)="editChannelDescription()">edit</mat-icon>
+        <mat-icon class="edit-icon" *ngIf="channelDescEdit" (click)="editChannelDescription()">check_circle</mat-icon>
+      </div>
+      <span *ngIf="!channelDescEdit">{{ description }}</span>
+      <input class="editing-border" *ngIf="channelDescEdit" type="text" [(ngModel)]="description" />
+      <div class="admin">
+        <span>Erstellt von</span>
+        <span class="name">{{ admin }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-member-dialog></app-member-dialog>
+<span style="font-style: italic;" *ngIf="isAdmin">Sie sind Admin und können den Channel nicht verlassen.</span>
+<div class="leave-channel">
+  <button *ngIf="!isMember || isAdmin" (click)="leaveChannel()" [disabled]="isAdmin">Channel verlassen</button>
+</div>

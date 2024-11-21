@@ -1,0 +1,84 @@
+<app-middle-wrapper [hasDefaultPadding]="false" class="app-middle-wrapper">
+  <div class="chat-content">
+    <div class="current-nav-user cursor-effect">
+      <div (click)="onOpenEditChannel()">
+        <img class="sender" src="assets/img/icons/hash_tag.svg" alt="" />
+        <span>{{ channel.channel_name }}</span>
+        <img class="arrow" src="assets/img/icons/arrow_expand.svg" alt="" />
+      </div>
+    </div>
+    <div class="chat-container">
+      <div id="message" class="message">
+        <section class="error_section" *ngIf="show_error_message === true">
+          <p>Ouff! Only <span>members</span> of this channel are allowed to send messages. Please contact the <span>channel administrator</span> for adding you as member!</p>
+          <img src="assets/img/icons/subscribe.svg" alt="" />
+        </section>
+        <section *ngIf="channel_is_deleted">
+          @if(authenticatedUser?.id === channel.admin){
+          <h1>Du hast diesen Channel gelöscht. Kein Mitglied kann Nachricht in diesem Channel schreiben. Das ist das Ende des Channels.</h1>
+          }@else{
+          <h1>
+            Dieser Channel wurde vom Administrator gelöscht. Kein Mitglied kann im Channel schreiben. Bitte kontaktieren Sie der Admin, um mehr dazu zu erfahren. Das ist das Ende
+            des Channels.
+          </h1>
+
+          }
+        </section>
+        @if(channelChat.length !==0){
+        <div *ngFor="let chatGroup of groupedChat">
+          <div class="group-date">
+            <span>{{ chatGroup.date }} </span>
+            <div class="line"></div>
+          </div>
+          <div *ngFor="let message of chatGroup.messages" class="chat-message" [class.align-right]="message?.from_user !== authenticatedUser?.id">
+            <div class="image-message">
+              <img class="sender" src="{{ getCachedUser(message?.from_user)?.avatar }}" alt="" />
+            </div>
+            <div class="name-date-line">
+              <div>
+                <span>{{ getCachedUser(message?.from_user)?.name }}</span>
+                <span>{{ setTimeFormat(message.send_date) }} Uhr</span>
+              </div>
+              <p>{{ message.message_content }}</p>
+            </div>
+          </div>
+        </div>
+        }
+        <div>
+          <div class="user-ref">
+            <img class="sender" src="assets/img/icons/hash_tag.svg" alt="" />
+            <span class="username text-capitalize">{{ channel.channel_name }}</span>
+          </div>
+          @if(channel.admin ===authenticatedUser?.id){
+          <div class="self-room">
+            Du hast diesen Channel {{ setChannelCreateDate(channel.created_at) }} erstellt. Das ist der Anfang des Channels
+            <button class="tag text-capitalize">&num;{{ channel.channel_name }}</button>
+          </div>
+          } @else {
+          <div class="self-room">
+            Dieser Channel wurde {{ setChannelCreateDate(channel.created_at) }} erstellt. Das ist der Anfang des Channels
+            <button class="tag text-capitalize">&num;{{ channel.channel_name }}</button>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="input-wrapper">
+      <div class="input-form">
+        <input class="message-input" [(ngModel)]="message_content" type="text" name="meassage" placeholder="Nachrichten an #{{ channel.channel_name }}" />
+        <div class="send-line">
+          <div class="alternate-line">
+            <img class="icons" src="assets/img/icons/input_add.svg" alt="" />
+            <div class="sep-line"></div>
+            <img class="icons" src="assets/img/icons/sentiment_satisfied.svg" alt="" />
+            <img class="icons" src="assets/img/icons/alternate_email.svg" alt="" />
+          </div>
+          <button (click)="onAddMessage(authenticatedUser?.id, channel.channel_id)">
+            <img src="assets/img/icons/send.svg" alt="Send message" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-middle-wrapper>

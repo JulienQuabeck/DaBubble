@@ -1,0 +1,72 @@
+<div>
+    <div class="message-container" *ngIf="threadData">
+      <div class="reaction-bar">
+        <mat-icon>comment</mat-icon>
+        <mat-icon mat-icon-button [matMenuTriggerFor]="editMenu">more_vert</mat-icon>
+        <mat-menu class="edit" #editMenu="matMenu">
+          <button class="btn" mat-menu-item (click)="editMessage()">
+            Nachricht bearbeiten
+          </button>
+        </mat-menu>
+      </div>
+      <div class="message">
+        <div class="name-time">
+          <span class="time">{{ formatTime(thread.time) }}</span>
+          <span class="name">{{ thread.name }}</span>
+        </div>
+        
+        <div class="text" *ngIf="!editMode">
+          {{ thread.content }}
+          <ng-container *ngIf="fileURL">
+            <a target="_blank" [href]="fileURL"><img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="200px"></a>
+            <a target="_blank" [href]="fileURL"><iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="200px" height="250px"></iframe></a>
+            <a target="_blank" [href]="fileURL">
+              <video *ngIf="fileType === 'video'" controls>
+                <source [src]="fileURL" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </a>
+            <div *ngIf="fileType === 'unknown'">
+              <a [href]="fileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="edit-menu" *ngIf="editMode">
+          <input type="text">
+          <div class="edit-bottom">
+            <app-emoji-picker *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()"/>
+            <mat-icon (click)="showEmojiPicker()">sentiment_satisfied</mat-icon>
+            <div class="btns">
+              <button (click)="cancelEdit()">Abbrechen</button>
+              <button (click)="saveEditMessage()">Speichern</button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="reaction-container">
+          <div class="reaction" *ngFor="let reaction of thread.reactions let i = index">
+            <img [src]="reaction.path">
+            <span>{{ reaction.count }}</span>
+            <div class="bubble">
+              <img [src]="reaction.path">
+              <h3>{{ reactionNames[i] }}</h3>
+              <span>hat reagiert</span>
+          </div>
+          </div>
+  
+          <mat-icon (click)="toggleReactions()" *ngIf="showReactionIcon">add_reaction</mat-icon>
+          <div class="chose-reaction" *ngIf="showReactions" #reactionContainer>
+            <img src="../../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png" (click)="reactToThreadMessage('check_mark', '../../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png', thread.id)">
+            <img src="../../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png" (click)="reactToThreadMessage('celebrate', '../../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png', thread.id)">
+            <img src="../../../../assets/img/04_chats-message/emoji_nerd_face_.png" (click)="reactToThreadMessage('nerd', '../../../../assets/img/04_chats-message/emoji_nerd_face_.png', thread.id)">
+            <img src="../../../../assets/img/04_chats-message/emoji_rocket_.png" (click)="reactToThreadMessage('rocket', '../../../../assets/img/04_chats-message/emoji_rocket_.png', thread.id)">
+          </div>
+        </div>
+      </div>
+  
+      <div class="img-container">
+        <img [src]="avatar">
+      </div>
+    </div>
+</div>

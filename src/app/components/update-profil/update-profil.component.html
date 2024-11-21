@@ -1,0 +1,50 @@
+<section>
+  <div class="ch-creation">
+    <span>Dein Profil bearbeiten</span>
+    <img class="cursor-effect close-btn" (click)="onCloseUpdateProfile()" src="assets/img/icons/close.svg" alt="" />
+  </div>
+  <img class="user-profile-img" src="{{ authenticatedUser ? authenticatedUser.avatar : 'assets/img/profiles/male_avatar.svg' }}" alt="" />
+
+  <div class="single-user-info top-mg-1">
+    <img class="mail" src="assets/img/icons/account_circle.svg" alt="" />
+    <span class="address">Vollständiger Name</span>
+  </div>
+  <input
+    class="capitalize"
+    #usernameModel="ngModel"
+    [(ngModel)]="username"
+    type="text"
+    [disabled]="!authenticatedUser?.online"
+    [placeholder]="authenticatedUser?.online ? 'Vorname Nachname' : 'Bubble Guest'"
+    required=""
+    pattern="^[A-Za-zäöüßÄÖÜ]{1,}(?: [A-Za-zäöüßÄÖÜ]+)*$"
+  />
+  <div class="single-user-info">
+    <img class="mail" src="assets/img/icons/mail.svg" alt="" />
+    <span class="address">E-Mail Adresse</span>
+  </div>
+  <input
+    [(ngModel)]="user_email"
+    #user_emailModel="ngModel"
+    type="email"
+    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+    [disabled]="!authenticatedUser?.online"
+    [placeholder]="authenticatedUser?.online ? 'max-mustermann@gmail.com' : 'guest@mail.com'"
+    required
+  />
+  <div class="btn-container">
+    <button class="btn" (click)="onCloseUpdateProfile()">Abbrechen</button>
+    <button
+      class="btn"
+      (click)="save('users', authenticatedUser?.id!)"
+      [disabled]="!user_emailModel.valid || 
+        !usernameModel.valid ||
+        (username === originalUsername && user_email === originalUserEmail)
+        "
+      [style.opacity]="!user_emailModel.valid || !usernameModel.valid ||
+      (username === originalUsername && user_email === originalUserEmail) ? '0.5' : '1'"
+    >
+      Speichern
+    </button>
+  </div>
+</section>

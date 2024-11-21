@@ -1,0 +1,82 @@
+<div>
+    <div class="message-container" 
+         (mouseenter)="onMessageHover(message.id, true)" 
+         (mouseleave)="onMessageHover(message.id, false)">
+        <div class="reaction-bar" [class.visible]="isReactionBarVisible[message.id]">
+            <mat-icon (click)="reactToMessage(message.id, 'check mark', '../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png')"><img src="../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png"></mat-icon>
+            <mat-icon (click)="reactToMessage(message.id, 'raising hands', '../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png')"><img src="../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png"></mat-icon>
+            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'nerd', '../../../assets/img/04_chats-message/emoji_nerd_face_.png')"><img src="../../../assets/img/04_chats-message/emoji_nerd_face_.png" class="reaction"></mat-icon>
+            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'rocket', '../../../assets/img/04_chats-message/emoji_rocket_.png')"><img src="../../../assets/img/04_chats-message/emoji_rocket_.png" class="reaction"></mat-icon>
+            <mat-icon (click)="openReactions()">add_reaction</mat-icon>
+            <mat-icon *ngIf="!allReactions" (click)="openThread(message.id)">comment</mat-icon>
+            <mat-icon mat-icon-button 
+                      [matMenuTriggerFor]="editMenu"
+                      (menuOpened)="onMenuOpened(message.id)"
+                      (menuClosed)="onMenuClosed(message.id)"
+                      >more_vert
+            </mat-icon>
+            <mat-menu class="edit" #editMenu="matMenu">
+                <button class="btn" mat-menu-item (click)="editMessage(message.id)">
+                    Nachricht bearbeiten   
+                </button>
+                <button class="btn" mat-menu-item (click)="deleteMessage(message.id)">
+                    Nachricht löschen   
+                </button>
+            </mat-menu>
+        </div>
+        <div class="message">
+            <div class="name-time">
+                <span class="time">{{ formatTime(message.time) }} Uhr</span>
+                <span class="name">{{ message.name }}</span>
+            </div>
+            
+            <div class="text" *ngIf="!isEditingMessage(message.id)">
+                {{ message.content }}
+                <ng-container *ngIf="fileURL">
+                    <a target="_blank" [href]="fileURL"><img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="200px"></a>
+                    <a target="_blank" [href]="fileURL"><iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="200px" height="250px"></iframe></a>
+                    <a target="_blank" [href]="fileURL"><video *ngIf="fileType === 'video'" controls>
+                        <source [src]="fileURL" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video></a>
+                    <div *ngIf="fileType === 'unknown'">
+                      <a [href]="fileURL" target="_blank">Datei herunterladen: {{ message.fileName }}</a>
+                    </div>
+                  </ng-container>
+                  <span *ngIf="message.messageEdit">(Bearbeitet)</span>
+            </div>
+            
+            <div *ngIf="isEditingMessage(message.id)" class="edit-menu">
+                <input [(ngModel)]="message.content" type="text">
+                <div class="edit-bottom">
+                    <app-emoji-picker *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()"/>
+                    <mat-icon (click)="showEmojiPicker()">sentiment_satisfied</mat-icon>
+                    <div class="btns">
+                        <button (click)="cancelEdit(message.id)">Abbrechen</button>
+                        <button (click)="saveEditMessage(message)">Speichern</button>
+                    </div>
+                </div>
+            </div>
+            <div class="answer" *ngIf="answerCount > 0" (click)="openThread(message.id)">
+                <span class="counted-answers">{{ answerCount }} {{ answerCount === 1 ? 'Antwort' : 'Antworten' }}</span>
+                <span class="time">Letzte Antwort {{ lastAnswerTime }}</span>
+              </div>
+            
+            <div class="reaction-container" *ngIf="message.reactions?.length > 0">
+                <div class="reaction" *ngFor="let reaction of message.reactions; let i = index">
+                    <img [src]="reaction.path">
+                    <span>{{ reaction.count }}</span>
+                    <div class="bubble">
+                        <img [src]="reaction.path">
+                        <h3>{{ reactionNames[i] }}</h3>
+                        <span>hat reagiert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="img-container">
+            <img [src]="avatar">
+        </div>
+    </div>
+</div>

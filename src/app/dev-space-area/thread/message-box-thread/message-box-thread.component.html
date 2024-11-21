@@ -1,0 +1,42 @@
+<div class="container">
+  <textarea 
+    #inputBox
+    [(ngModel)]="content"
+    placeholder="Antworten ..." 
+    cols="30" 
+    rows="3">
+  </textarea>
+  <ng-container *ngIf="fileURL">
+    <img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="200px">
+    <iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="200px" height="250px"></iframe>
+    <video *ngIf="fileType === 'video'" controls>
+      <source [src]="fileURL" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div *ngIf="fileType === 'unknown'">
+      <a [href]="fileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+    </div>
+    <mat-icon (click)="deleteUploadedFile()" class="delete-btn">delete</mat-icon>
+  </ng-container>
+  <mat-progress-bar *ngIf="isUploading" mode="indeterminate" [value]="uploadProgress"></mat-progress-bar>
+
+  <div class="bottom">
+    <div>
+      <input type="file"  #fileUploadThread hidden>
+      <label for="fileUpload">
+        <mat-icon (click)="openFileDialog()">add</mat-icon>
+      </label>
+      <span></span>
+      <app-emoji-picker class="emoji-picker" *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()" #emojiPicker/>
+      <mat-icon  (click)="showEmojiPicker(); $event.stopPropagation()">sentiment_satisfied</mat-icon>
+        <div class="link-someone" *ngIf="linkDialog">
+        <div class="user" *ngFor="let user of users" (click)="addMemberToMessage(user.name)" #addMember>
+          <img [src]="user.avatar" alt="{{ user.name }}">
+          <span>{{ user.name }}</span>
+        </div>
+      </div>
+      <mat-icon (click)="toggleLinkDialog()">alternate_email</mat-icon>
+    </div>
+    <mat-icon (click)="sendMessage()">send</mat-icon>
+  </div>
+</div>

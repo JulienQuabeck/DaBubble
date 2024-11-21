@@ -1,0 +1,19 @@
+<h2>
+    Mitglieder
+    <mat-icon (click)="closeDialog()" class="close">close</mat-icon>
+</h2>
+<div class="container">
+    <!-- Zeige alle Mitglieder, die vom Benutzer geladen wurden -->
+    <div class="member" *ngFor="let user of users">
+        <div class="member-status">
+            <img [src]="user.avatar" alt="{{ user.name }}">
+            <div class="status" [ngStyle]="{ 'background-color': user.online ? '#92C83E' : '#686868' }"></div>
+        </div>
+        <span>{{ user.name }}</span>
+    </div>
+
+    <div class="member add-member" (click)="openAddMemberDialog()">
+        <mat-icon>person_add</mat-icon>
+        <span>Mitglieder hinzufügen</span>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<section [class.nav-section]="isNavBar === true">
+  <div class="ch-creation">
+    <span>profil</span>
+    <img class="cursor-effect close-btn" (click)="onCloseShowProfil()" src="assets/img/icons/close.svg" alt="" />
+  </div>
+
+  @if(authenticatedUser){
+  <img class="user-profile-img" src="{{ isNavBar === true ? authenticatedUser.avatar : selectedUser ? selectedUser.avatar : authenticatedUser.avatar }}" alt="" />
+  <div class="user-name-update">
+    <span>{{ isNavBar === true ? authenticatedUser.name : selectedUser ? selectedUser.name : authenticatedUser.name }}</span>
+    <button *ngIf="isNavBar" (click)="onOpenUpdateProfil()">bearbeiten</button>
+  </div>
+  <div class="single-user-info">
+    <img class="online" src="assets/img/icons/{{ isNavBar === true ? 'Online.svg' : selectedUser ? (selectedUser.online ? 'Online.svg' : 'offline.svg') : 'Online.svg' }}" alt="" />
+    <span [style.color]="isNavBar === true ? '#92c83e' : selectedUser ? (selectedUser.online ? '#92c83e' : '#686868') : '#92c83e'">{{
+      isNavBar === true ? 'aktiv' : selectedUser ? (selectedUser.online ? 'aktiv' : 'abwesend') : 'aktiv'
+    }}</span>
+  </div>
+  <div class="single-user-info">
+    <img class="mail" src="assets/img/icons/mail.svg" alt="" />
+    <span class="address">E-Mail Adresse</span>
+  </div>
+  <span class="mail-address">{{ isNavBar === true ? authenticatedUser.email : selectedUser ? selectedUser.email : authenticatedUser.email }}</span>
+  @if(!isNavBar && (!selectedUser || selectedUser.id !== authenticatedUser.id)){
+  <div class="btn-container">
+    <button class="btn" (click)="onAutoFocus()">
+      <img src="assets/img/icons/mode_comment.svg" alt="" />
+      <span>Nachrichten</span>
+    </button>
+  </div>
+  } }@else{
+  <img
+    class="user-profile-img"
+    src="{{ isNavBar === true ? 'assets/img/profiles/male_avatar.svg' : selectedUser ? selectedUser.avatar : 'assets/img/profiles/male_avatar.svg' }}"
+    alt=""
+  />
+  <div class="user-name-update">
+    <span>{{ isNavBar === true ? 'bubble guest' : selectedUser ? selectedUser.name : 'bubble guest' }}</span>
+    <button *ngIf="isNavBar" (click)="onOpenUpdateProfil()">bearbeiten</button>
+  </div>
+  <div class="single-user-info">
+    <img class="online" src="assets/img/icons/{{ isNavBar === true ? 'Online.svg' : selectedUser ? (selectedUser.online ? 'Online.svg' : 'offline.svg') : 'Online.svg' }}" alt="" />
+    <span [style.color]="isNavBar === true ? '#92c83e' : selectedUser ? (selectedUser.online ? '#92c83e' : '#686868') : '#92c83e'">{{
+      isNavBar === true ? 'aktiv' : selectedUser ? (selectedUser.online ? 'aktiv' : 'abwesend') : 'aktiv'
+    }}</span>
+  </div>
+  <div class="single-user-info">
+    <img class="mail" src="assets/img/icons/mail.svg" alt="" />
+    <span class="address">E-Mail Adresse</span>
+  </div>
+  <span class="mail-address">{{ isNavBar === true ? 'guest@mail.com' : selectedUser ? selectedUser.email : 'guest@mail.com' }}</span>
+  <div *ngIf="!isNavBar" class="btn-container">
+    <button class="btn" (click)="onAutoFocus()">
+      <img src="assets/img/icons/mode_comment.svg" alt="" />
+      <span>Nachrichten</span>
+    </button>
+  </div>
+  }
+</section>

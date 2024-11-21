@@ -1,0 +1,31 @@
+<h2>
+    Leute hinzufügen
+    <mat-icon (click)="closeDialog()" class="close">close</mat-icon>
+</h2>
+<div class="container">
+    <div><mat-icon>tag</mat-icon> Entwickler Team</div>
+   
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <mat-select [(value)]="selectedUser" multiple (selectionChange)="onUserSelected($event.value)">
+            <mat-select-trigger>
+                <div class="selected-users">
+                  <div class="member-status" *ngFor="let user of filteredUsers | filterSelected: selectedUser">
+                    <img [src]="user.avatar">
+                    <span>{{ user.name }}</span>
+                  </div>
+                </div>
+              </mat-select-trigger>
+            <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
+                <div class="member-status">
+                    <img [src]="user.avatar">
+                    <div class="status" [ngStyle]="{ 'background-color': user.online ? '#92C83E' : '#686868' }"></div>
+                    <span>{{ user.name }}</span>
+                </div>
+            </mat-option>
+          </mat-select>
+    </mat-form-field>
+  </div>
+<div class="btn-container">
+    <button (click)="addUser()">Hinzufügen</button>
+</div>

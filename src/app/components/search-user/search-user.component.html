@@ -1,0 +1,20 @@
+<form autocomplete="off" #dialog>
+  <input type="text" [(ngModel)]="new_person_name" (input)="onSearchUser()" name="search-input" placeholder="Name suchen" *ngIf="componentType === 'search-input'" />
+  <ul class="users">
+    @if(componentType==='user-list'){
+    <li *ngFor="let user of filteredUsers; let i = index" class="d-flex capitilize gp l-mg-2 cursor-effect" (click)="sendToAddUserToChannel(user); onAddTread(user)">
+      <app-profile class="app-profile" [left_side_profile]="true" [image_user]="user.avatar" [bgColorOnline]="user.online === true ? '#92c83e' : '#686868'" />
+      <span> {{ user.name }} </span>
+    </li>
+    }@else if(componentType ==='search-input'){
+    <li
+      *ngFor="let user of filtered_users; let i = index"
+      class="d-flex capitilize gp l-mg-2 cursor-effect"
+      (click)="sendToAddUserToChannel(user); onToggleSearchUser(false); onAddTread(user)"
+    >
+      <app-profile class="app-profile" [left_side_profile]="true" [image_user]="user.avatar" [bgColorOnline]="user.online === true ? '#92c83e' : '#686868'" />
+      <span> {{ user.name }} </span>
+    </li>
+    }
+  </ul>
+</form>

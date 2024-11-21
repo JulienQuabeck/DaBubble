@@ -1,0 +1,152 @@
+<app-wrapper>
+  <div class="section-header">
+    <div>
+      <img src="assets/img/icons/workspace-logo.svg" alt="" />
+      <span class="main-title">Devspace</span>
+    </div>
+    <button class="closeDialDev" (click)="onToggleDevSearch(true)">
+      <img class="edit-square" src="assets/img/icons/edit_square.svg" alt="" />
+    </button>
+  </div>
+  <!--  -->
+  <div class="section-content">
+    <div class="sub-section sub-sec-1">
+      <div class="channel-section-header cursor-effect d-flex">
+        <button (click)="onExpand()" class="closeDialBtn">
+          <img [class.rotateArrowExpand]="expand == true" src="assets/img/icons/arrow_drop_down.svg" alt="" />
+        </button>
+        <div class="icon-group d-flex space-btn">
+          <div (click)="onExpand()" class="gp capitilize d-flex">
+            <img src="assets/img/icons/workspaces.svg" alt="" />
+            <span class="title">channels</span>
+          </div>
+          <button class="closeDial">
+            <img (click)="onOpen()" src="assets/img/icons/add.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <!--  -->
+      <div class="fold" [class.fold_in_channel]="expand == true">
+        <ul class="list-channel">
+          <li
+            *ngFor="let channel of channels$ | async; let i = index"
+            [class.activeChannel]="selectedChannelIndex == i"
+            (click)="
+              selectChannel(i);
+              loadChannelMembers(channel.channel_id);
+              onToggleDevSearch(false);
+              sendChannel(channel);
+              handleMobileView('wrapper_2');
+              loadChannelMembers(channel.channel_id);
+              showChannelMessages(true);
+              loadChannelMessages(channel.channel_id);
+              handleUpdateUserChannelId(channel.channel_id);
+              closeThread();
+              storeStateSessionInfo('no user', 'no user', 'channel', i)
+            "
+            class="d-flex gp l-mg-7"
+          >
+            <img class="icon-small" src="assets/img/icons/hash_tag.svg" alt="" />
+            <span class="capitilize channel-name">{{ channel.channel_name }} </span>
+          </li>
+        </ul>
+        <div class="add-channel gp d-flex l-mg-2 cursor-effect" (click)="onOpen()">
+          <img class="icon-small cursor-effect" src="assets/img/icons/add_circle.svg" alt="" />
+          <span class="capitilize channel-name">channel hinzufügen</span>
+        </div>
+      </div>
+    </div>
+    <div class="sub-section sub-sec-2 direct-messages">
+      <div (click)="onCollapse()" class="message-section-header cursor-effect d-flex">
+        <button class="closeDialBtn">
+          <img [class.rotateArrow]="collapse == true" src="assets/img/icons/arrow_drop_down.svg" alt="" />
+        </button>
+        <div class="icon-group d-flex space-btn">
+          <div class="gp capitilize d-flex">
+            <img src="assets/img/icons/account_circle.svg" alt="" />
+            <span class="title">direktnachrichten</span>
+          </div>
+        </div>
+      </div>
+      <ul [class.fold_in]="collapse == true" class="users">
+        @if(authenticatedUser){
+        <li
+          [class.active]="selectedIndex == 0"
+          (click)="
+            selectUser(0);
+            onAutoFocus();
+            sendSelectedUser(authenticatedUser);
+            handleMobileView('wrapper_2');
+            onToggleDevSearch(false);
+            showChannelMessages(false);
+            sendUserId(authenticatedUser.id!);
+            loadMessages(authenticatedUser.id!, authenticatedUser.id!);
+            storeStateSessionInfo(authenticatedUser, authenticatedUser, 'user', 0)
+          "
+          class="d-flex capitilize gp l-mg-2"
+        >
+          <app-profile
+            class="app-profile"
+            [left_side_profile]="true"
+            [image_user]="authenticatedUser.avatar"
+            [bgColorOnline]="authenticatedUser.online === true ? '#92c83e' : '#686868'"
+          />
+          <span class="user-name" *ngIf="authenticatedUser"> {{ authenticatedUser.name }}</span>
+          <span>(Du)</span>
+        </li>
+        }@else{
+        <li
+          [class.active]="selectedIndex == 0"
+          (click)="
+            selectUser(0);
+            onToggleDevSearch(false);
+            onAutoFocus();
+            sendSelectedUser(onlineUser!);
+            handleMobileView('wrapper_2');
+            onFocus();
+            showChannelMessages(false);
+            sendUserId(onlineUser?.id!);
+            loadMessages(onlineUser?.id!, onlineUser?.id!);
+            storeStateSessionInfo(onlineUser, onlineUser, 'guest', 0)
+          "
+          class="d-flex capitilize gp l-mg-2"
+        >
+          <app-profile class="app-profile" [left_side_profile]="true" [image_user]="'assets/img/profiles/male_avatar.svg'" [bgColorOnline]="'#92c83e'" />
+          <span class="user-name"> {{ onlineUser ? onlineUser.name : 'bubble guest' }}</span>
+          <span>(Du)</span>
+        </li>
+        }
+        <ng-container *ngFor="let user of users$ | async; let i = index">
+          <li
+            *ngIf="user.id !== authenticatedUser?.id && user?.name !== 'bubble guest'"
+            [class.active]="selectedIndex == i + 1"
+            (click)="
+              selectUser(i + 1);
+              sendSelectedUser(user);
+              handleMobileView('wrapper_2');
+              onFocus();
+              onAutoFocus();
+              onToggleDevSearch(false);
+              showChannelMessages(false);
+              sendUserId(user.id);
+              loadMessages(authenticatedUser ? authenticatedUser.id : onlineUser.id, user.id);
+              storeStateSessionInfo(authenticatedUser ? authenticatedUser : onlineUser, user, 'user', i + 1)
+            "
+            class="d-flex capitilize gp l-mg-2"
+          >
+            <app-profile
+              class="app-profile"
+              [left_side_profile]="true"
+              *ngIf="user.avatar"
+              [image_user]="user.avatar"
+              [bgColorOnline]="user.online === true ? '#92c83e' : '#686868'"
+            />
+            <span> {{ user.name }}</span>
+            <span *ngIf="user.id === this.auth_user_id">(Du)</span>
+          </li>
+        </ng-container>
+      </ul>
+      <app-scroll-to-top (click)="onToggleDevSearch(true); handleMobileView('wrapper_2')" />
+    </div>
+  </div>
+</app-wrapper>

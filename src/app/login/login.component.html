@@ -1,0 +1,45 @@
+<app-header></app-header>
+<section>
+  <main>
+    <mat-card class="card">
+      <div class="info">
+        <div class="title">Anmeldung</div>
+        <div class="description">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</div>
+      </div>
+      <form [formGroup]="loginForm">
+        <div class="loginInputsContainer">
+          <div class="inputField">
+            <mat-icon>mail</mat-icon>
+            <input name="email" type="mail" placeholder="beispielname@email.com" formControlName="mail"  />
+            <!-- [(ngModel)]="mail" -->
+          </div>
+          <div class="inputField">
+            <mat-icon>lock</mat-icon>
+            <input name="password" type="password" placeholder="Passwort" formControlName="password" />
+            <!-- [(ngModel)]="password" -->
+          </div>
+          <div class="error">
+            <div *ngIf="displayWrongMailOrPasswordError">*E-Mail-Adresse oder Password fehlerhaft.</div>
+          </div>
+          <div class="link" [routerLink]="['newPassword']">Passwort vergessen?</div>
+        </div>
+        <div class="seperator">
+          <div class="underline"></div>
+          ODER
+          <div class="underline"></div>
+        </div>
+        <button id ="googleLoginButton" class="googleLogin" (click)="googleLogin()">
+          <!-- (click)="googleLogin()" -->
+          <img src="./assets/img/01_onboarding-login-signup/Google.png" />
+          Anmelden mit Google
+        </button>
+        <div class="buttonContainer">
+          <button type="button" class="button loginButton" (click)="login()">Anmelden</button>
+          <div class="button guestLoginButton divAsButton" (click)="onGuestLogin()">Gäste-Login</div>
+          <!--Link anpassen von chooseAvatar to Dashboard-->
+        </div>
+      </form>
+    </mat-card>
+  </main>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,164 @@
+.container {
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  padding: 20px;
+  margin-left: 35px;
+  margin-right: 35px;
+
+  .upload {
+    width: fit-content;
+    padding: 10px 20px;
+    margin-bottom: 16px;
+    color: black;
+    background-color: #eceefe;
+    border-radius: 20px;
+    font-size: 18px;
+
+    a {
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        color: #535af1;
+      }
+    }
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    transition: ease-in 80ms;
+
+    &:hover {
+      background-color: #eceefe;
+      color: #535af1;
+    }
+  }
+
+  textarea {
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    resize: none;
+
+    &::placeholder {
+      font-size: 18px;
+    }
+  }
+
+  .bottom {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    color: #686868;
+    position: relative;
+
+    app-emoji-picker {
+      bottom: 123px;
+      right: auto;
+      left: 75%;
+      transform: none;
+    }
+
+    mat-icon {
+      color: #444df2;
+
+      &:hover {
+        color: #797ef3;
+      }
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      span {
+        width: 1px;
+        height: 40px;
+        background-color: #adb0d9;
+      }
+
+      mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 20px;
+        color: #686868;
+
+        &:hover {
+          color: #535af1;
+          background-color: #eceefe;
+        }
+      }
+
+      &:hover mat-icon {
+        color: black;
+      }
+
+      mat-icon:hover {
+        color: #535af1;
+      }
+    }
+
+    .link-someone {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      max-height: 250px;
+      overflow-y: auto;
+      padding: 5px 15px;
+      border-radius: 30px 30px 30px 0;
+      cursor: pointer;
+      position: absolute;
+      bottom: 40px;
+      left: 130px;
+      font-size: 16px;
+      border: 1px solid #adb0d9;
+      background-color: white;
+
+      .user {
+        display: flex;
+        align-items: center;
+        padding: 4px 20px;
+        border-radius: 30px;
+
+        &:hover {
+          background-color: #eceefe;
+        }
+
+        span {
+          width: auto;
+          background-color: transparent;
+          height: auto;
+        }
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 30px;
+      }
+    }
+  }
+}
+
+// ----------------------------- MEDIA -----------------------------
+
+@media (max-width: 610px) {
+  .container {
+    margin: 0 16px;
+  }
+}

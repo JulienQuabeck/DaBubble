@@ -1,0 +1,59 @@
+<form autocomplete="off">
+  @if (is_delete_channel) {
+  <form autocomplete="off">
+    <div class="ch-creation">
+      <span>&num; {{ channel.channel_name }}</span>
+      <button class="closeDial">
+        <img src="assets/img/icons/close.svg" (click)="onOpenEditChannel()" alt="" />
+      </button>
+    </div>
+    <div>
+      <ul>
+        <li>1. Geben Sie bitte Ihr Password ein, um den Channel endgültig zu löschen.</li>
+        <li>2. Beachten Sie, dass gelöschte Channels weiterhin sichtbar werden. Kein Member (einschließlich der Admin) kann jedoch Nachrichten im Channel schreiben.</li>
+      </ul>
+    </div>
+    <input [(ngModel)]="admin_password" type="text" placeholder="Geben Sie Ihr Passwort ein" name="admin_passwort" />
+    <input [(ngModel)]="deletion_message" type="text" placeholder="Nachricht an den Nutzern senden (optional)" name="delete_message" />
+    <div class="btn-container">
+      <button class="btn btn-info" (click)="onCancelDeletion()">Abbrechen</button>
+      <button class="btn btn-danger" (click)="onDeleteChannel()">Bestätigen</button>
+    </div>
+  </form>
+  <div class="overlay"></div>
+  } @else {
+  <div class="ch-creation">
+    <span>&num; {{ channel.channel_name }}</span>
+    <button class="closeDial">
+      <img src="assets/img/icons/close.svg" (click)="onOpenEditChannel()" alt="" />
+    </button>
+  </div>
+  <div class="title-container">
+    <div>
+      <span>channel-name</span>
+      <button>bearbeiten</button>
+    </div>
+    <span class="capitalize">&num; {{ channel.channel_name }}</span>
+  </div>
+
+  <div class="title-container">
+    <div>
+      <span>Beschreibung</span>
+      <button>bearbeiten</button>
+    </div>
+    <span>
+      {{ channel.description }}
+    </span>
+    <div class="separator-line"></div>
+    <div class="author-line">
+      <span class="creator">Erstellt von</span>
+      <div class="creator-name">{{ admin_name }}</div>
+    </div>
+  </div>
+
+  <div class="btn-container">
+    <button type="button" class="btn btn-danger" *ngIf="authenticatedUser?.id === channel.admin" (click)="onTryToDeleteChannel()">Channel löschen</button>
+    <button type="button" class="btn btn-info" (click)="onLeaveChannel()">Channel verlassen</button>
+  </div>
+  }
+</form>

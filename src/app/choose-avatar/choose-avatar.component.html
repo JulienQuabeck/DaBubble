@@ -1,0 +1,54 @@
+@if(Userregistrated){
+<section class="whiteScreen">
+    <div class="userMessage">
+        Konto erfolgreich erstellt.
+    </div>
+</section>
+}
+
+<div class="header-container">
+    <img src="./assets/img/01_onboarding-login-signup/Logo.png" class="logo">
+    <div class="name">
+        DaBubble
+    </div>
+</div>
+
+<section>
+    <mat-card>
+        <div class="descriptionContainer">
+            <div class="titleContainer">
+                <img class="arrowBack" src="./assets/img/01_onboarding-login-signup/arrow_back.png"
+                    [routerLink]="['/signIn']">
+                <mat-card-title>Wähle deinen Avatar</mat-card-title>
+            </div>
+            <div class="chosenAvatarContainer">
+                <img id="currentImage" class="image" src="{{chosenImage}}">
+            </div>
+            <div class="nameAndAvatarPickerContainer">
+                <div class="name">Dein Name</div>
+                <div class="AvatarPickerDescription">
+                    Aus der Liste wählen
+                </div>
+                <div class="avatarList">
+                    @for(item of avatar; track item){
+                    <img src="./assets/img/00_general-buttons/characters/{{item}}.png" (click)="changeImage(item)">
+                    }
+                </div>
+                <div class="fileUploadContainer">
+                    <div class="fileUploadDescription">eigenes Bild verwenden</div>
+                    <div>
+                        <label for="file-upload" class="custom-file-upload">
+                            Datei hochladen
+                        </label>
+                        <input id="file-upload" type="file" (change)="onFileSelected($event)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttonContainer">
+                <button class="button" (click)="registerCompleted()">Weiter</button>
+            </div>
+        </div>
+    </mat-card>
+</section>
+<app-footer></app-footer>

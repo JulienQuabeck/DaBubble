@@ -1,0 +1,6 @@
+<mat-card class="card">
+  <app-dev-new-message />
+  <mat-card-content #messageContainer> </mat-card-content>
+  <app-message-box class="message-box"></app-message-box>
+</mat-card>
+<div class="background" *ngIf="channelInfoDialog || channelMemberDialog || addMemberDialog" (click)="closeDialogOnClick($event)"></div>

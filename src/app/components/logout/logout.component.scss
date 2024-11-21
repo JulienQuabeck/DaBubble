@@ -1,0 +1,30 @@
+section {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  max-width: 150px;
+  width: 90vw;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  background-color: white;
+  position: absolute;
+  top: 88px;
+  right: 1rem;
+  z-index: 5;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+  > .log {
+    font-family: 'Nunito';
+    font-weight: 700;
+    font-size: 16px;
+    border: transparent;
+    background-color: transparent;
+    border-radius: 30px;
+    transition: all 250ms ease-in-out;
+    padding-block: 0.5em;
+    &:hover {
+      color: #797ef3;
+      background-color: #eceefe !important;
+    }
+  }
+}

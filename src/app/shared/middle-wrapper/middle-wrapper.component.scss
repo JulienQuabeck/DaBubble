@@ -1,0 +1,23 @@
+div {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.padding {
+  padding: unset !important;
+}
+
+@media (width<630px) {
+  div {
+    width: unset;
+    padding: unset;
+  }
+
+  .padding {
+    display: flex;
+    align-items: end;
+  }
+}

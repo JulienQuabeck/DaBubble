@@ -1,0 +1,231 @@
+<app-middle-wrapper [hasDefaultPadding]="false" class="app-middle-wrapper">
+  <div class="chat-content">
+    <div *ngIf="authenticatedUser?.avatar" class="current-nav-user cursor-effect" (click)="onOpenShowProfile(); sendSelectedUser(getCachedUser(toUserId))">
+      <button>
+        @if(getCachedUser(toUserId)){
+        <img class="sender cursor-effect" src="{{ getCachedUser(toUserId).avatar }}" alt="" />
+        <span class="online-marker" [style.backgroundColor]="getCachedUser(toUserId).online === true ? '#92c83e' : '#686868'"></span>
+        }@else {
+        <img class="sender cursor-effect" src="{{ authenticatedUser?.avatar }}" alt="" />
+
+        <span class="online-marker" [style.backgroundColor]="'#92c83e'"></span>
+
+        }
+      </button>
+      <span>{{ getCachedUser(toUserId) ? getCachedUser(toUserId).name : authenticatedUser?.name }}</span>
+    </div>
+    @if(chat.length !==0){
+    <div class="chat-container">
+      <div *ngFor="let chatGroup of groupedChat; let index_chat = index">
+        <div class="group-date">
+          <span>{{ chatGroup.date }} </span>
+          <div class="line"></div>
+        </div>
+        <div *ngFor="let message of chatGroup.messages; let index_group = index" class="chat-message" [class.align-right]="message?.from_user === authenticatedUser?.id">
+          <div class="image-message">
+            <div class="offset" *ngIf="message?.response_content"></div>
+            <img *ngIf="getCachedUser(message?.from_user)?.avatar" class="sender" src="{{ getCachedUser(message?.from_user)?.avatar }}" alt="" />
+          </div>
+          <div class="name-date-line">
+            <div class="response_msg" *ngIf="message?.response_content">
+              <img *ngIf="getCachedUser(message?.from_user_origin)?.avatar" class="sender-origin" src="{{ getCachedUser(message?.from_user_origin)?.avatar }}" alt="" />
+              <span class="origin_msg">&#64;{{ getCachedUser(message?.from_user_origin)?.name }}</span>
+              <p class="response" [class.response-p]="message?.from_user === authenticatedUser?.id">{{ message?.response_content.substring(0, 100) }}</p>
+            </div>
+            <div *ngIf="update_group !== index_group || update_chat !== index_chat">
+              <span>{{ getCachedUser(message?.from_user)?.name }}</span>
+              <span>{{ setTimeFormat(message?.send_date) }} Uhr</span>
+            </div>
+
+            <p *ngIf="update_group !== index_group || update_chat !== index_chat">
+              {{ message.message_content }} <br />
+              <ng-container>
+                {{ loadFileUpload(message) }}
+              </ng-container>
+              <ng-container *ngIf="messageFileURL">
+                <a target="_blank" [href]="messageFileURL"
+                  ><img *ngIf="messageFileType === 'image'" [src]="messageFileURL" alt="Image" class="uploaded-image img-design" width="200px"
+                /></a>
+                <a target="_blank" [href]="messageFileURL"
+                  ><iframe *ngIf="messageFileType === 'pdf'" [src]="messageFileURL" class="pdf-viewer" width="200px" height="250px"></iframe
+                ></a>
+                <a target="_blank" [href]="messageFileURL"
+                  ><video *ngIf="messageFileType === 'video'" controls>
+                    <source [src]="messageFileURL" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video></a
+                >
+                <div *ngIf="messageFileType === 'unknown'">
+                  <a [href]="messageFileURL" target="_blank">Datei herunterladen: {{ message.fileName }}</a>
+                </div>
+              </ng-container>
+              <span title="{{ update_title }}" *ngIf="message?.is_updated" class="updated_msg">(Bearbeitet)</span>
+              <button class="single-reaction" (click)="onDeleteEmoji(message?.message_id)" *ngIf="message?.reaction">
+                @if (message?.reaction.slice(-3)==="svg") {
+                <img src="assets/img/icons/{{ message?.reaction }}" alt="" />
+                }@else {
+                {{ message?.reaction }}
+                }
+              </button>
+            </p>
+            <div class="update-msg" *ngIf="update_group === index_group && update_chat === index_chat">
+              <textarea class="update_message" #updateArea autocomplete="off" [(ngModel)]="update_message" type="text" name="update_message"></textarea>
+              <ng-container>
+                {{ loadFileUpload(message) }}
+              </ng-container>
+              <ng-container *ngIf="messageFileURL && !clearFile && message.fileName">
+                <div class="uplodImageDirectMessages">
+                  <img *ngIf="messageFileType === 'image'" [src]="messageFileURL" alt="Image" class="uploaded-image" width="150px" />
+                  <iframe *ngIf="messageFileType === 'pdf'" [src]="messageFileURL" class="pdf-viewer" width="100px" height="100px"></iframe>
+                  <video *ngIf="messageFileType === 'video'" controls>
+                    <source [src]="messageFileURL" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div *ngIf="messageFileType === 'unknown'">
+                    <a [href]="messageFileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+                  </div>
+                  <mat-icon (click)="clearUpdateFile()" class="delete-btn">delete</mat-icon>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="fileURL && (this.update_chat !== -1 || this.update_group !== -1)">
+                <div class="uplodImageDirectMessages">
+                  <img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="150px" />
+                  <iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="100px" height="100px"></iframe>
+                  <video *ngIf="fileType === 'video'" controls>
+                    <source [src]="fileURL" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div *ngIf="fileType === 'unknown'">
+                    <a [href]="fileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+                  </div>
+                  <mat-icon (click)="clearFileUpload()" class="delete-btn">delete</mat-icon>
+                </div>
+              </ng-container>
+              <mat-progress-bar *ngIf="isUploading && memoFileUploader" mode="indeterminate" [value]="uploadProgress"></mat-progress-bar>
+              <div class="btn-line" *ngIf="update_group === index_group && update_chat === index_chat">
+                <div class="update-file-container">
+                  <button for="fileUpload" class="sentiment_satisfied-btn" (click)="openFileDialog()">
+                    <img class="icons" src="assets/img/icons/input_add.svg" alt="" />
+                  </button>
+                  <button class="sentiment_satisfied-btn">
+                    <img (click)="onShowEmojiPicker(); onButtonClick()" class="icons" src="assets/img/icons/sentiment_satisfied.svg" alt="" />
+                  </button>
+                </div>
+                <div class="btn-container">
+                  <button class="btn btn-white" (click)="onCancelUpdateMsg()" type="button">Abbrechen</button>
+                  @if(is_response){
+                  <button class="btn btn-info" (click)="handleResponse(message)" type="button">Speichern</button>
+                  }@else {
+                  <button class="btn btn-info" (click)="handleUpdateMsg(message?.message_id)" type="button">Speichern</button>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="emoji-container" [class.align-box-right]="message?.from_user !== authenticatedUser?.id" *ngIf="update_group !== index_group || update_chat !== index_chat">
+            <div class="img-group">
+              <button class="emoji-icon" (click)="onAddEmoji(message?.message_id, 'emoji_white_heavy_check_mark_.svg')">
+                <img src="assets/img/icons/emoji_white_heavy_check_mark_.svg" alt="" />
+              </button>
+              <button class="emoji-icon" (click)="onAddEmoji(message?.message_id, 'emoji_person_hand_celebrate_.svg')">
+                <img src="assets/img/icons/emoji_person_hand_celebrate_.svg" alt="" />
+              </button>
+              <button>
+                <img (click)="onShowEmojiPicker(); sendSelectedMsgId(message?.message_id)" src="assets/img/icons/add_reaction.svg" alt="" />
+              </button>
+              <button>
+                <img (click)="onRespond(index_chat, index_group)" src="assets/img/icons/comment.svg" alt="" />
+              </button>
+              <button *ngIf="message?.from_user === authenticatedUser?.id">
+                <img (click)="onShowDeleteDialog(index_group)" *ngIf="message?.from_user === authenticatedUser?.id" src="assets/img/icons/more_vert.svg" alt="" />
+              </button>
+              <div *ngIf="show_delete_msg === index_group" class="btn-group" [class.align-btn-right]="message?.from_user !== authenticatedUser?.id">
+                <button class="btn" (click)="onUpdateMessage(message?.message_content, message?.fileUrl, message?.fileName, index_chat, index_group)">Nachricht bearbeiten</button>
+                <button class="btn" (click)="onDeleteMessage(message?.message_id)">Nachricht löschen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    } @else{
+    <div id="message" class="message">
+      <div>
+        <div class="user-ref">
+          <img
+            *ngIf="authenticatedUser || getCachedUser(toUserId)?.avatar"
+            class="sender"
+            src="{{ getCachedUser(toUserId) ? getCachedUser(toUserId)?.avatar : authenticatedUser?.avatar }}"
+            alt=""
+          />
+          <span class="username text-capitalize"
+            >{{ getCachedUser(toUserId) ? getCachedUser(toUserId)?.name : authenticatedUser?.name }}
+            <span *ngIf="!selectedUser || selectedUser.id === authenticatedUser?.id"> (Du)</span></span
+          >
+        </div>
+        @if(!selectedUser || selectedUser.id===authenticatedUser?.id){
+        <div class="self-room">
+          <span>Dieser Raum ist nur für dich da.</span> Mache dir Notizen, liste deine To-dos auf oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge
+          mit dir selbst besprechen.
+        </div>
+        } @else {
+        <div class="conversation-start">
+          Diese Unterhaltung findet nur zwischen
+          <button class="tag text-capitalize" (click)="onOpenShowProfile(); sendSelectedUser(getCachedUser(toUserId))">
+            &#64;{{ getCachedUser(toUserId) ? getCachedUser(toUserId)?.name : 'bubble guest' }}
+          </button>
+          und dir statt.
+        </div>
+        }
+      </div>
+    </div>
+    }
+    <app-emoji-picker class="emoji-picker" *ngIf="toggleEmojiPicker" />
+    <app-search-user [componentType]="'search-input'" />
+    <div class="input-wrapper">
+      <div class="input-form">
+        <textarea
+          #focusMsg
+          [(ngModel)]="message_content"
+          autofocus="authenticatedUser"
+          name="msg-area"
+          id="msg-area"
+          placeholder="Nachricht an {{ getCachedUser(toUserId) ? getCachedUser(toUserId)?.name : authenticatedUser?.name }}"
+        ></textarea>
+        <ng-container *ngIf="fileURL && (this.update_chat === -1 || this.update_group === -1)">
+          <div class="uplodImageDirectMessages">
+            <img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="150px" />
+            <iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="100px" height="100px"></iframe>
+            <video *ngIf="fileType === 'video'" controls>
+              <source [src]="fileURL" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div *ngIf="fileType === 'unknown'">
+              <a [href]="fileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+            </div>
+            <mat-icon (click)="clearFileUpload()" class="delete-btn">delete</mat-icon>
+          </div>
+        </ng-container>
+        <mat-progress-bar *ngIf="isUploading && !memoFileUploader" mode="indeterminate" [value]="uploadProgress"></mat-progress-bar>
+        <input type="file" #fileUpload hidden />
+        <div class="send-line">
+          <div class="alternate-line">
+            <button for="fileUpload" class="sentiment_satisfied-btn" (click)="openFileDialog()">
+              <img class="icons" src="assets/img/icons/input_add.svg" alt="" />
+            </button>
+            <div class="sep-line"></div>
+            <button #buttonDialog class="sentiment_satisfied-btn">
+              <img (click)="onShowEmojiPicker(); onButtonClick()" class="icons exclude-button" src="assets/img/icons/sentiment_satisfied.svg" alt="" />
+            </button>
+            <button class="sentiment_satisfied-btn">
+              <img (click)="sendShowSearchUser()" class="icons" src="assets/img/icons/alternate_email.svg" alt="" />
+            </button>
+          </div>
+          <button class="submitMessageBtn" (click)="onAddMessage(toUserId)">
+            <img src="assets/img/icons/send.svg" alt="Send message" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-middle-wrapper>

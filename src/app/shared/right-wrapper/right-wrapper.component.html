@@ -1,0 +1,33 @@
+<div class="container" [class.showRightWrapper]="openNextWrapper === 'wrapper_1' || openNextWrapper === 'wrapper_2'">
+  <mat-card class="card" *ngIf="isVisible">
+    <mat-card-header>
+      <mat-card-title>
+        Thread
+        <span># {{ channelName }}</span>
+      </mat-card-title>
+      <mat-icon class="close" (click)="toggleThread(); handleDialogMobile('wrapper_2')">close</mat-icon>
+    </mat-card-header>
+
+    <mat-card-content #messageContainer>
+      <ng-container *ngIf="threadData">
+        <app-own-message-thread *ngIf="threadData.senderId === uid" [thread]="threadData"> </app-own-message-thread>
+        <app-message-thread *ngIf="threadData.senderId !== uid" [thread]="threadData"> </app-message-thread>
+        <div *ngIf="threadMessages.length > 0" class="message-divider">
+          <span>
+            {{ threadMessages.length }}
+            {{ threadMessages.length === 1 ? 'Antwort' : 'Antworten' }}
+          </span>
+          <div class="devider"></div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngFor="let message of threadMessages">
+        <app-own-message-thread *ngIf="message.senderId === uid" [thread]="message" [id]="message.docId" [showReactionIcon]="true"> </app-own-message-thread>
+
+        <app-message-thread *ngIf="message.senderId !== uid" [thread]="message" [id]="message.docId" [showReactionIcon]="true"> </app-message-thread>
+      </ng-container>
+    </mat-card-content>
+
+    <app-message-box-thread [channelId]="channelId" [messageId]="messageId" [threadId]="threadId" class="message-box"> </app-message-box-thread>
+  </mat-card>
+</div>

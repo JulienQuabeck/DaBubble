@@ -1,0 +1,72 @@
+<div *ngIf="!isCurrentUserMember()" class="not-member-message">
+  Sie sind leider kein Member in diesem Channel.
+</div>
+<div class="container">
+    <textarea 
+      #messageTextArea
+      placeholder="Nachricht an #{{ channelName }}" 
+      [(ngModel)]="messageContent"
+      (keydown)="onKeyDown($event)"
+      (input)="checkForAtSymbol($event)"
+      name="" id="" cols="30" rows="3">
+    </textarea>
+    <ng-container *ngIf="fileURL">
+      <img *ngIf="fileType === 'image'" [src]="fileURL" alt="Image" class="uploaded-image" width="200px">
+      <iframe *ngIf="fileType === 'pdf'" [src]="fileURL" class="pdf-viewer" width="200px" height="250px"></iframe>
+      <video *ngIf="fileType === 'video'" controls>
+        <source [src]="fileURL" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div *ngIf="fileType === 'unknown'">
+        <a [href]="fileURL" target="_blank">Datei herunterladen: {{ fileName }}</a>
+      </div>
+      <mat-icon (click)="clearFileUploadData()" class="delete-btn">delete</mat-icon>
+    </ng-container>
+    <mat-progress-bar *ngIf="isUploading" mode="indeterminate" [value]="uploadProgress"></mat-progress-bar>
+  <div class="bottom">
+    <div>
+      <input type="file" #fileUpload hidden>
+      <label for="fileUpload">
+        <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="openFileDialog()"><mat-icon >add</mat-icon></button>
+      </label>
+      <div class="line"></div>
+      <app-emoji-picker *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()" #emojiPicker/>
+      <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="showEmojiPicker(); $event.stopPropagation()"><mat-icon >sentiment_satisfied</mat-icon></button>
+      <div class="link-someone" *ngIf="linkDialog">
+        <div *ngIf="showUsers">
+          <div class="fl-d" *ngIf="filteredUsers.length > 0; else noUsersFound">
+            <div
+              class="user"
+              *ngFor="let user of filteredUsers"
+              (click)="addMemberToMessage(user.name)"
+              #addMember
+            >
+              <img [src]="user.avatar" alt="{{ user.name }}" />
+              <span>{{ user.name }}</span>
+            </div>
+          </div>
+          <ng-template #noUsersFound>
+            <span class="not-found">Kein Member gefunden</span>
+          </ng-template>
+        </div>
+        <div  *ngIf="showChannels">
+          <div class="fl-d" *ngIf="filteredChannels.length > 0; else noChannelsFound">
+            <div
+              class="user"
+              *ngFor="let channel of filteredChannels"
+              (click)="addChannelToMessage(channel.channel_name)"
+              #addMember
+            >
+              <span>{{ channel.channel_name }}</span>
+            </div>
+          </div>
+          <ng-template #noChannelsFound>
+            <span class="not-found">Kein Channel gefunden</span>
+          </ng-template>
+        </div>
+      </div>
+      <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="toggleLinkDialog()"><mat-icon >alternate_email</mat-icon></button>
+    </div>
+    <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="sendMessage()"> <mat-icon >send</mat-icon></button>
+  </div>
+</div>

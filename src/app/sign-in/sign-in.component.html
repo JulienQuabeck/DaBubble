@@ -1,0 +1,88 @@
+<div class="header-container">
+    <img src="./assets/img/01_onboarding-login-signup/Logo.png" class="logo">
+    <div class="name">
+        DaBubble
+    </div>
+</div>
+
+<section>
+    <mat-card>
+        <div class="descriptionContainer">
+            <form class="loginInputsContainer" (ngSubmit)="onSubmit()" #data="ngForm">
+                <div class="headline">
+                    <img class="arrowBack" src="./assets/img/01_onboarding-login-signup/arrow_back.png"
+                        [routerLink]="['/']">
+                    <mat-card-title>Konto erstellen</mat-card-title>
+                </div>
+                <mat-card-title-group>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
+                    DaBubble-Konto.</mat-card-title-group>
+                <mat-card-content>
+                    <div class="inputField">
+                        <mat-icon>person</mat-icon>
+                        <input name="name" type="name" placeholder="Name und Nachname" required [(ngModel)]="name"
+                            (ngModelChange)="checkInputs()" #nameInput="ngModel">
+                    </div>
+                    <div class="errorContainer">
+                        @if(displayNameError && nameInput.touched){
+                        <div class="errorText">
+                            *Bitte schreiben Sie einen Namen.
+                        </div>
+                        }
+                    </div>
+                    <div class="inputField">
+                        <mat-icon>mail</mat-icon>
+                        <input name="email" type="mail" placeholder="beispielname@email.com" required [(ngModel)]="mail"
+                            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" (ngModelChange)="checkInputs()"
+                            #mailInput="ngModel">
+                    </div>
+                    <div class="errorContainer">
+                        @if(displayMailError && mailInput.touched){
+                        <div class="errorText">
+                            *Diese E-Mail-Adresse ist leider ungültig oder bereits in Verwendung.
+                        </div>
+                        }
+                    </div>
+                    <div class="inputField">
+                        <mat-icon>lock</mat-icon>
+                        <input name="password" type="password" placeholder="Passwort" required [(ngModel)]="password"
+                            (ngModelChange)="checkInputs()" #passwordInput="ngModel">
+                    </div>
+                    <div class="errorContainer">
+                        @if(displayPasswordError && passwordInput.touched){
+                        <div class="errorText">
+                            *Bitte geben Sie ein mindestens 6 Zeichen langes Passwort ein.
+                        </div>
+                        }
+                        @if(passwordNotLongEnough && passwordInput.touched){
+                        <div class="errorText">
+                            *Das Passwort muss mindestens 6 Zeichen lang sein.
+                        </div>
+                        }
+                    </div>
+                </mat-card-content>
+
+                <div class="checkPrivacyPolicyContainer">
+                    <div class="checkPrivacyPolicyContainerUpperContainer">
+                        <input name="privacyPolicy" type="checkbox" [(ngModel)]="privacyPolicy"
+                            (ngModelChange)="checkInputs()" #PrivacyPolicyInput="ngModel">
+                        <div class="checkPrivacyPolicyText">Ich stimme der <a [routerLink]="['/privacyPolicy']">Datenschutzerklärung</a> zu.
+                        </div>
+                    </div>
+                    <div class="errorContainer">
+                        @if(displayPrivatPolicyError && PrivacyPolicyInput.touched){
+                        <div class="errorText">
+                            *Bitte stimmen Sie der Datenschutzerklärung zu.
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="buttonContainer">
+                    <button class="button loginButton" [ngClass]="{'btnActiv': !emptyInputs && password.length >=6}"
+                        [disabled]="emptyInputs || password.length < 6">Weiter</button>
+                </div>
+            </form>
+        </div>
+    </mat-card>
+</section>
+<app-footer></app-footer>

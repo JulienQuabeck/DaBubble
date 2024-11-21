@@ -1,0 +1,174 @@
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700 !important;
+    font-size: 24px !important;
+    line-height: 32.74px !important;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+    }
+
+    .close {
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 6px;
+
+        &:hover {
+            background-color: #ECEEFE;
+            color: #535AF1;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    div {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        color: #797EF3;
+        gap: 15px;
+
+        mat-icon {
+            font-style: italic;
+            font-size: 24px;
+        }
+    }
+
+    mat-form-field {
+        width: 433px;
+    }
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        all: unset;
+        border-radius: 25px;
+        padding: 12px 25px !important;
+        background-color: #444DF2;
+        color: white;
+        font-weight: 700;
+        transition: ease-in 100ms;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #797EF3;
+            scale: 1.02;
+        }
+    }
+}
+
+:host {
+    --mdc-outlined-text-field-container-shape: 30px;
+}
+
+.mat-mdc-option:focus.mdc-list-item,
+.mat-mdc-option.mat-mdc-option-active.mdc-list-item,
+.mat-mdc-option.mdc-list-item {
+    border-radius: 30px;
+    padding: 4px 20px;
+    background-color: white !important;
+    width: fit-content;
+    transition: 100ms ease-in;
+
+    &:hover {
+        background-color: #ECEEFE !important;
+    }
+
+    &:active {
+        color: #535AF1;
+    }
+}
+
+.member-status {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 30px;
+        border: 2px solid white;
+    }
+
+    div {
+        background-color: #92C83E;
+        width: 14px;
+        height: 14px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+
+    .status {
+        align-self: end;
+        margin-left: -20px;
+    }
+
+    span {
+        margin-left: 15px;
+    }
+}
+
+.selected-users {
+    margin-bottom: 0 !important;
+
+    .member-status {
+        margin: 0;
+        gap: 0;
+        background-color: #ECEEFE;
+        border-radius: 35px;
+        padding: 3px 20px;
+        color: black;
+
+        img {
+            width: 34px;
+            height: 34px;
+        }
+
+        div {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.no-scrollbar-panel {
+    scrollbar-width: none;
+    /* Versteckt den Scrollbalken in Firefox */
+    -ms-overflow-style: none;
+    /* Versteckt den Scrollbalken in IE und Edge */
+}
+
+.no-scrollbar-panel::-webkit-scrollbar {
+    display: none;
+    /* Versteckt den Scrollbalken in Chrome, Safari und Edge */
+}
+
+// ----------------------------- MEDIA -----------------------------
+
+@media(max-width: 620px) {
+    .container {
+        mat-form-field {
+            width: 280px;
+        }
+    }
+}
+
+@media(max-width: 610px) {}

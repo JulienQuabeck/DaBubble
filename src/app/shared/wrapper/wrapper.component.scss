@@ -1,0 +1,28 @@
+div {
+  max-width: 366px;
+  min-width: 312px;
+  width: 50vw;
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 1.5rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+@media (width<1300px) {
+  div {
+    max-width: 320px;
+  }
+}
+
+@media (width<950px) {
+
+  // :host {
+  //   display: none;
+  // }
+  div {
+    max-width: unset;
+    width: 100%;
+    padding: 16px;
+  }
+}

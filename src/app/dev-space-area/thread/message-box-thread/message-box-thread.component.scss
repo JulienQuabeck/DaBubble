@@ -1,0 +1,115 @@
+.container {
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 35px;
+    margin-right: 35px;
+
+    mat-icon {
+        cursor: pointer;
+    }
+
+    textarea {
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 18px;
+        resize: none;
+
+        &::placeholder {
+            font-size: 18px;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 24px;
+        color: #686868;
+
+        mat-icon {
+            color: #444DF2;
+
+            &:hover {
+                color: #797EF3;
+            }
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            span {
+                width: 1px;
+                height: 40px;
+                background-color: #ADB0D9;
+            }
+
+            mat-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px;
+                border-radius: 20px;
+                color: #686868;
+
+                &:hover {
+                    color: #535AF1;
+                    background-color: #ECEEFE;
+                }
+            }
+
+            &:hover mat-icon {
+                color: black;
+            }
+
+            mat-icon:hover {
+                color: #535AF1;
+            }
+        }
+
+        .link-someone {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 5px 15px;
+            border-radius: 30px 30px 30px 0;
+            cursor: pointer;
+            position: absolute;
+            bottom: 40px;
+            left: 130px;
+            font-size: 16px;
+            border: 1px solid #adb0d9;
+            background-color: white;
+            white-space: nowrap;
+
+            .user {
+                display: flex;
+                align-items: center;
+                padding: 4px 20px;
+                border-radius: 30px;
+
+                &:hover {
+                    background-color: #ECEEFE;
+                }
+
+                span {
+                    width: auto;
+                    background-color: transparent;
+                    height: auto;
+                }
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 30px;
+            }
+        }
+    }
+}

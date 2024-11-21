@@ -1,0 +1,54 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title (click)="openChannelDialog(); onOpenChannelInfo(true)">
+      <mat-icon>tag</mat-icon>
+      {{ channelName }}
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </mat-card-title>
+    <app-channel-dialog
+      class="channel-dialog"
+      @slideDown
+      *ngIf="channelInfoDialog"
+      (click)="$event.stopPropagation()"
+      (toggleChannelInfoDialog)="openChannelDialog()"
+    ></app-channel-dialog>
+    <div class="member-container">
+      <div class="member" (click)="openMemberDialog()">
+        <div>
+          <img *ngFor="let member of members.slice(0, 4)" class="member-img" [src]="member.avatar" />
+          <span class="member-img more" *ngIf="members.length > 4">+{{ members.length - 4 }}</span>
+        </div>
+        <span>{{ members.length }}</span>
+      </div>
+      <button class="btn-unset" *ngIf="isCurrentUserMember()" (click)="openAddMemberDialog()"><mat-icon class="add-member">person_add</mat-icon></button>
+    </div>
+    <app-member-dialog
+      class="member-dialog"
+      @slideDown
+      *ngIf="channelMemberDialog"
+      (click)="$event.stopPropagation()"
+      (toggleMemberDialog)="openMemberDialog()"
+      (toggleAddMemberDialog)="openAddMemberDialog()"
+    ></app-member-dialog>
+    <app-add-member-dialog
+      class="member-dialog add-member-dialog"
+      @slideDown
+      *ngIf="addMemberDialog"
+      (click)="$event.stopPropagation()"
+      (toggleAddMemberDialog)="openAddMemberDialog()"
+    ></app-add-member-dialog>
+  </mat-card-header>
+  <mat-card-content #messageContainer *ngIf="isCurrentUserMember()">
+    <ng-container *ngFor="let message of messages; let i = index; trackBy: trackByMessageId">
+      <div *ngIf="shouldShowDivider(message.time, i)" class="date-divider">
+        <div class="devider"></div>
+        <span>{{ formatDate(message.time) }}</span>
+        <div class="devider"></div>
+      </div>
+      <app-message @flyInRight *ngIf="message.senderId !== uid" [message]="message" [close]="close" (notifyThreadOpen)="onNotifyThreadOpen()"></app-message>
+      <app-own-message @flyInRight *ngIf="message.senderId === uid" [message]="message" [close]="close" (notifyThreadOpen)="onNotifyThreadOpen()"></app-own-message>
+    </ng-container>
+  </mat-card-content>
+  <app-message-box class="message-box"></app-message-box>
+</mat-card>
+<div class="background" *ngIf="channelInfoDialog || channelMemberDialog || addMemberDialog" (click)="closeDialogOnClick($event)"></div>

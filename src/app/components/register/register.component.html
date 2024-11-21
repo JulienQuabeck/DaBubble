@@ -1,0 +1,21 @@
+<section>
+  <h1>Registrieren</h1>
+  <form (ngSubmit)="onRegister(name, password, name)" autocomplete="off">
+    <div class="input-group">
+      <label for="name">Name</label>
+      <input [(ngModel)]="name" type="text" id="name" name="name" />
+    </div>
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input [(ngModel)]="email" type="email" id="email" name="email" />
+    </div>
+    <div class="input-group">
+      <label for="password">Passwort</label>
+      <input [(ngModel)]="password" type="password" id="password" name="password" />
+    </div>
+    <div class="btn-container">
+      <button routerLink="/" type="button" class="btn btn-white">Abbrechen</button>
+      <button type="submit" class="btn btn-info">Konto erstellen</button>
+    </div>
+  </form>
+</section>

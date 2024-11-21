@@ -1,0 +1,163 @@
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-family: 'Nunito' !important;
+    font-weight: 700 !important;
+    font-size: 24px !important;
+    line-height: 32.74px !important;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 6px;
+
+        &:hover {
+            background-color: #ECEEFE;
+            color: #535AF1;
+        }
+    }
+}
+
+mat-dialog-content {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    min-width: 500px;
+
+    .img-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 45px;
+        margin-bottom: 45px;
+    }
+
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 500px;
+    }
+
+    .profil-name {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: black;
+        margin-bottom: 16px;
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 43.65px;
+            margin-bottom: 0;
+        }
+
+        mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ECEEFE;
+            border-radius: 40px;
+            font-size: 24px;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        span {
+            color: #535AF1;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                color: #444DF2;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 45px;
+
+        .point {
+            width: 16px;
+            height: 16px;
+            background-color: #92C83E;
+            border-radius: 50%;
+        }
+    }
+
+    .mail-head {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+        }
+
+        span {
+            font-weight: 700;
+            color: black;
+            font-size: 20px;
+        }
+    }
+
+    .mail {
+        margin-top: 15px;
+        margin-bottom: 45px;
+
+        a {
+            all: unset;
+            cursor: pointer;
+            color: #1381FF;
+            font-size: 18px;
+            font-weight: 400;
+            margin-left: 50px;
+        }
+    }
+
+    .btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    button {
+        all: unset;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        color: white;
+        background-color: #444DF2;
+        padding: 12px 25px;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+}
+
+.mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 20px;
+}
