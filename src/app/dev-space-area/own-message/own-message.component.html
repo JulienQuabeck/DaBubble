@@ -3,10 +3,10 @@
          (mouseenter)="onMessageHover(message.id, true)" 
          (mouseleave)="onMessageHover(message.id, false)">
         <div class="reaction-bar" [class.visible]="isReactionBarVisible[message.id]">
-            <mat-icon (click)="reactToMessage(message.id, 'check mark', '../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png')"><img src="../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png"></mat-icon>
-            <mat-icon (click)="reactToMessage(message.id, 'raising hands', '../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png')"><img src="../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png"></mat-icon>
-            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'nerd', '../../../assets/img/04_chats-message/emoji_nerd_face_.png')"><img src="../../../assets/img/04_chats-message/emoji_nerd_face_.png" class="reaction"></mat-icon>
-            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'rocket', '../../../assets/img/04_chats-message/emoji_rocket_.png')"><img src="../../../assets/img/04_chats-message/emoji_rocket_.png" class="reaction"></mat-icon>
+            <mat-icon (click)="reactToMessage(message.id, 'check mark', './assets/img/04_chats-message/emoji_white_heavy_check_mark_.png')"><img src="../../../assets/img/04_chats-message/emoji_white_heavy_check_mark_.png"></mat-icon>
+            <mat-icon (click)="reactToMessage(message.id, 'raising hands', './assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png')"><img src="../../../assets/img/04_chats-message/emoji_person_raising_both_hands_in_celebration_.png"></mat-icon>
+            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'nerd', './assets/img/04_chats-message/emoji_nerd_face_.png')"><img src="../../../assets/img/04_chats-message/emoji_nerd_face_.png" class="reaction"></mat-icon>
+            <mat-icon *ngIf="allReactions" (click)="reactToMessage(message.id, 'rocket', './assets/img/04_chats-message/emoji_rocket_.png')"><img src="../../../assets/img/04_chats-message/emoji_rocket_.png" class="reaction"></mat-icon>
             <mat-icon (click)="openReactions()">add_reaction</mat-icon>
             <mat-icon *ngIf="!allReactions" (click)="openThread(message.id)">comment</mat-icon>
             <mat-icon mat-icon-button 

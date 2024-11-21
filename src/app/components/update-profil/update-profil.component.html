@@ -1,12 +1,12 @@
 <section>
   <div class="ch-creation">
     <span>Dein Profil bearbeiten</span>
-    <img class="cursor-effect close-btn" (click)="onCloseUpdateProfile()" src="assets/img/icons/close.svg" alt="" />
+    <img class="cursor-effect close-btn" (click)="onCloseUpdateProfile()" src="./assets/img/icons/close.svg" alt="" />
   </div>
-  <img class="user-profile-img" src="{{ authenticatedUser ? authenticatedUser.avatar : 'assets/img/profiles/male_avatar.svg' }}" alt="" />
+  <img class="user-profile-img" src="{{ authenticatedUser ? authenticatedUser.avatar : './assets/img/profiles/male_avatar.svg' }}" alt="" />
 
   <div class="single-user-info top-mg-1">
-    <img class="mail" src="assets/img/icons/account_circle.svg" alt="" />
+    <img class="mail" src="./assets/img/icons/account_circle.svg" alt="" />
     <span class="address">Vollständiger Name</span>
   </div>
   <input
@@ -20,7 +20,7 @@
     pattern="^[A-Za-zäöüßÄÖÜ]{1,}(?: [A-Za-zäöüßÄÖÜ]+)*$"
   />
   <div class="single-user-info">
-    <img class="mail" src="assets/img/icons/mail.svg" alt="" />
+    <img class="mail" src="./assets/img/icons/mail.svg" alt="" />
     <span class="address">E-Mail Adresse</span>
   </div>
   <input
