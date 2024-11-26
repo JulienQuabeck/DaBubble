@@ -156,14 +156,14 @@ export class SignInComponent implements OnInit {
   }
 
   async createDefaultChannel() {
-    // let channelData = {
-    //   channel_name: 'office-team',
-    //   admin: 'unknown',
-    // };
-    // let defaultChannel = new Channel(channelData);
-    // let channelObject = defaultChannel.toObject();
-    // //this.databaseService.addChannel(channelObject);
-    // return channelObject.channel_id;
+    let channelData = {
+      channel_name: 'office-team',
+      admin: 'unknown',
+    };
+    let defaultChannel = new Channel(channelData);
+    let channelObject = defaultChannel.toObject();
+    //this.databaseService.addChannel(channelObject);
+    return channelObject.channel_id;
   }
 
   onAddChannel(currentUser: string) {

@@ -23,11 +23,11 @@
 
   <div class="bottom">
     <div>
-      <input type="file"  #fileUploadThread hidden>
+      <!-- <input type="file"  #fileUploadThread hidden>
       <label for="fileUpload">
         <mat-icon (click)="openFileDialog()">add</mat-icon>
       </label>
-      <span></span>
+      <span></span> -->
       <app-emoji-picker class="emoji-picker" *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()" #emojiPicker/>
       <mat-icon  (click)="showEmojiPicker(); $event.stopPropagation()">sentiment_satisfied</mat-icon>
       <div class="link-someone" *ngIf="linkDialog">

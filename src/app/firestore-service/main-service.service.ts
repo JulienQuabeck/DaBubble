@@ -124,7 +124,7 @@ export class MainServiceService {
   }
 
   async checkAndUpdateChannelMembers(): Promise<string[]> {
-    const channelRef = this.getSingleChannelRef('channels', 'Za3v5gMhmXHumJr7483M');
+    const channelRef = this.getSingleChannelRef('channels', 'nYxuZYCu6GvUvAm054WD');
     const channelSnap = await getDoc(channelRef);
     if (!channelSnap.exists()) {
       return [];

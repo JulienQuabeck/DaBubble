@@ -26,9 +26,9 @@
   <div class="bottom">
     <div>
       <input type="file" #fileUpload hidden>
-      <label for="fileUpload">
+      <!-- <label for="fileUpload">
         <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="openFileDialog()"><mat-icon >add</mat-icon></button>
-      </label>
+      </label> -->
       <div class="line"></div>
       <app-emoji-picker *ngIf="toggleEmojiPicker"  (click)="$event.stopPropagation()" #emojiPicker/>
       <button class="btn-unset" [disabled]="!isCurrentUserMember()" (click)="showEmojiPicker(); $event.stopPropagation()"><mat-icon >sentiment_satisfied</mat-icon></button>

@@ -73,6 +73,7 @@ export class AddMemberDialogComponent {
   }
 
   onUserSelected(selectedUserIds: string[]) {
+    debugger
     this.selectedUser = selectedUserIds;
   }
 
