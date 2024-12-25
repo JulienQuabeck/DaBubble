@@ -246,10 +246,10 @@ export class MainComponentComponent implements OnInit {
       description: this.channel_description,
       admin: this.authenticatedUser ? this.authenticatedUser.id : 'Unknown',
     };
-
     let office = new Channel(channelData).toObject();
     this.databaseService.getOfficeTeamMembers(this.officeTeamChannel?.channel_id, members => {
-      if (members) {
+      debugger
+      if (members) {//members ist hier null... darf es aber nicht sein; es müssen alle Member vom office-team geladen werden
         const memberArray = members.map(m => m.member_id);
         if (this.isChecked === 'officeTeam') {
           this.onAddPeopleToChannel(memberArray, office);
@@ -377,9 +377,11 @@ export class MainComponentComponent implements OnInit {
   onCloseLogout() {
     this.logOutService.updateProfile();
   }
+
   onCloseShowProfil() {
     this.showProfileService.updateProfile();
   }
+
   onOpenNavProfile() {
     this.showProfileService.updateNavProfile();
   }

@@ -288,9 +288,10 @@ export class DatabaseServiceService {
 
   getOfficeTeamMembers(TeamChannelId: string, callback: (members: any[] | null) => void) {
     const channelsQuery = query(this.getChannelMemberRef(), where('channel_id', '==', TeamChannelId));
-
     onSnapshot(channelsQuery, snapshot => {
-      if (!snapshot.empty) {
+      console.log(snapshot.docs.map(doc => doc.data()));
+      
+      if (!snapshot.empty) {//snapshot darf nicht leer sein
         const members = snapshot.docs.map(doc => doc.data());
         callback(members);
       } else {
